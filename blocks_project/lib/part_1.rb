@@ -24,7 +24,7 @@ end
 def count_positive_subarrays(two_d_arr)
     #debugger
     # ([[-2, 5], [1, -9, 1], [4, 7]]).count(*(any args))
-    two_d_arr.map(&:sum).count(&:positive?)
+    two_d_arr.count{ |subarr| subarr.sum > 0}
 end
 
 #   aba_translate
@@ -49,4 +49,5 @@ end
 #     should use your previous aba_translate method (FAILED - 15)
 
 def  aba_array(arr)
+    arr.map{|str| aba_translate(str)}
 end
