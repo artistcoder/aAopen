@@ -5,36 +5,35 @@ class Bootcamp
     @student_capacity = student_capacity
     @teachers = []
     @students = []
-    @grades = Hash.new{|hash, key| hash[key] = []}
-end
+    @grades = Hash.new { |h, k| h[k] = [] }
+  end
 
   def name
     @name
   end
+
   def slogan
     @slogan
   end
+
   def teachers
     @teachers
   end
+
   def students
     @students
   end
-  def grades
-    @grades
+
+  def hire(teacher)
+    @teachers << teacher
   end
 
-
-  def hire(str)
-    @teachers << str
-  end
-  
   def enroll(student)
-    if @students.length < @student_capacity
-        @students << student
-        true
+    if students.length < @student_capacity
+      @students << student
+      return true
     else
-        false
+      return false
     end
   end
 
@@ -43,15 +42,15 @@ end
   end
 
   def student_to_teacher_ratio
-    (@students.length / @teachers.length).floor
+    @students.length / @teachers.length
   end
 
   def add_grade(student, grade)
-    if enrolled?(student)
-        @grades[student] << grade
-        true
+    if self.enrolled?(student)
+      @grades[student] << grade
+      return true
     else
-        false
+      return false
     end
   end
 
@@ -60,12 +59,7 @@ end
   end
 
   def average_grade(student)
-    if enrolled?(student) && num_grades(student) > 0
-        (@grades[student].sum / num_grades(student)).floor 
-    else
-        nil
-    end
+    return nil if !self.enrolled?(student) || num_grades(student).zero?
+    @grades[student].sum / self.num_grades(student)
   end
-
-
 end
