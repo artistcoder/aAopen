@@ -12,11 +12,6 @@ class Code
     arr.all?{|char| POSSIBLE_PEGS.has_key?(char.upcase)}
   end
 
-  def initialize(char_arr)
-    raise ArgumentError.new('Error: pegs are not valid') if !Code.valid_pegs?(char_arr)  
-    @pegs = char_arr.map{|char| char.upcase} 
-  end
-
   def self.random(len)
     peg_arr = []
     len.times{peg_arr << POSSIBLE_PEGS.keys.sample}
@@ -27,6 +22,11 @@ class Code
     Code.new(peg_string.split(""))
   end
 
+  def initialize(char_arr)
+    raise ArgumentError.new('Error: pegs are not valid') if !Code.valid_pegs?(char_arr)  
+    @pegs = char_arr.map(&:upcase)
+  end
+
   def [](idx)
     @pegs[idx]
   end
@@ -35,15 +35,11 @@ class Code
     @pegs.length
   end
 
-  def num_exact_matches(code)
+  def num_exact_matches(guess_code)
     # return the number of pegs in the guess that are the correct color and position as @pegs
     count = 0
-    code.pegs.each_with_index do |peg_1,idx_1|
-      @pegs.each_with_index do |peg_2, idx_2|
-        if idx_1 == idx_2 && peg_1 == peg_2
-          count += 1
-        end
-      end
+    (0...guess_code.length).each do |idx|
+      count += 1 if self[idx] == guess_code[idx]
     end
     count
   end
