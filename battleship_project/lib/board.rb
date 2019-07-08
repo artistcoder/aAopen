@@ -7,6 +7,7 @@ class Board
         @size = n*n
     end
     # n = 2
+    # n = 9 ...81
     #GRID [[N N],
     #     [N N]]
     #
@@ -45,9 +46,21 @@ class Board
     end
 
     def place_random_ships
-        ship_num = .25 * @size
-        
+        ship_num = @size/4
+        ship_count = 0 
+        arr_length = Math.sqrt(@size).round - 1
+        while ship_count < ship_num
+            rand_position = [rand(0..arr_length),rand(0..arr_length)]
+            if self[rand_position] != :S
+                self[rand_position] = :S
+                ship_count += 1
+            end
+        end
     end
+
+    def hidden_ships_grid
+    end
+    
 
 
 
