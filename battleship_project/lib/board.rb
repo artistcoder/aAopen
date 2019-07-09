@@ -59,8 +59,35 @@ class Board
     end
 
     def hidden_ships_grid
+        hidden_grid = []
+        @grid.each do |arr|
+            hidden_arr = []
+            arr.each do |symbol|
+               if symbol == :S
+                hidden_arr << :N
+               else
+                hidden_arr << symbol
+               end
+            end
+            hidden_grid << hidden_arr
+        end
+        hidden_grid 
     end
-    
+
+    def self.print_grid(grid)
+        grid.each do |row|
+            row.each_with_index do |ele,idx|
+                print ele.to_s
+                if idx < row.length-1
+                    print " "
+                end
+            end
+            puts
+        end
+    end
+
+
+
 
 
 
