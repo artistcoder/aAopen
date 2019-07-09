@@ -5,12 +5,8 @@ class Board
     def initialize(n)
         @grid = Array.new(n){Array.new(n,:N)}
         @size = n*n
+        @row_col_length = n - 1
     end
-    # n = 2
-    # n = 9 ...81
-    #GRID [[N N],
-    #     [N N]]
-    #
 
     def [](idx_arr)
         row = idx_arr[0]
@@ -39,8 +35,14 @@ class Board
             self[position] = :H
             p "you sunk my battleship!"
             true
-        else
+        elsif position[0] > @row_col_length || position[1] > @row_col_length
+            p "you missed the grid. try again"
+            false
+        elsif self[position] == :N
             self[position] = :X
+            false
+        else
+            p "you already entered these coordinates, try again"
             false
         end
     end
@@ -84,6 +86,14 @@ class Board
             end
             puts
         end
+    end
+
+    def cheat
+        Board.print_grid(@grid)
+    end
+
+    def print
+        Board.print_grid(self.hidden_ships_grid)
     end
 
 
