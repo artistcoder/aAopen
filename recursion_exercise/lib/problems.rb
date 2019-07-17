@@ -111,7 +111,7 @@ end
 #     3-dimensional array: [[['some data']]]
 def flatten(data)
 
-    return [data] if data.to_a != data
+    return [data] if !data.kind_of?(Array)
     return data if data.flatten == data
 
     data.flatten! + flatten(data)
