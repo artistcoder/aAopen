@@ -13,17 +13,26 @@ class Game
         array.each do |word|
             @dictionary[word.chomp] = nil
         end
+        @losses = {player_1 => 0 , player_2 => 0}
+        @GHOST = "GHOST"
     end
 
     def play_round
         puts "current word fragment is: #{@fragment}"
         puts "current player is: #{@current_player.name}"
         puts "-----------------------------------------"
+        puts "#{@current_player.name} losses: #{@GHOST[0...@losses[@current_player]]}"
+        puts "#{@previous_player.name} losses: #{@GHOST[0...@losses[@previous_player]]}"
+        puts "-----------------------------------------"
         new_fragment = self.take_turn(@current_player)
         
         if valid_play?(new_fragment)
             @fragment = new_fragment
-            self.next_player
+            if self.lose?
+                @fragment = ""
+            else
+                self.next_player
+            end
         else
             puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
             puts "#{new_fragment} is not the beginning of a word. Please enter a valid letter."
@@ -53,10 +62,24 @@ class Game
 
     def lose?
         if @dictionary.keys.include?(@fragment)
-            puts "oh no! #{@previous_player.name}! You lost. You made the word #{@fragment}"
+            puts "-----------------------------------------"
+            puts "oh no! #{@current_player.name}! You lost this round. You made the word #{@fragment}"
+            @losses[@current_player] += 1
+            if @losses[@current_player] == 5
+                puts "Game Over. #{@previous_player.name} wins!"
+            end
             return true
         else
             return false
         end
     end
+
+    def run
+        self.play_round until @losses.values.any?{|loss| loss >= 5}
+        puts "#{@current_player.name} losses: #{@GHOST[0...@losses[@current_player]]}"
+        puts "#{@previous_player.name} losses: #{@GHOST[0...@losses[@previous_player]]}"
+    end
+
+
 end
+
