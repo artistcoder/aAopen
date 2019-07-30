@@ -84,7 +84,6 @@ end
 # A 1-dimensional array is also known as a flattened array.
 # Write a method, flatten(data), that accepts a single argument. The
 # method should take in an array of any dimension and return the flattened
-# version of that array. Solve this recursively.
 #   
 # Hint:
 #  - if the argument is not an array, then we have reached the base case
@@ -112,7 +111,9 @@ end
 def flatten(data)
 
     return [data] if !data.kind_of?(Array)
-    return data if data.flatten == data
 
-    data.flatten! + flatten(data)
+   # [a,[b,c]]...pop...[b,c] and [a]...
+   temp = data.pop
+
+   
 end

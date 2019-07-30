@@ -70,7 +70,8 @@ class Hash
     # hash_2.my_select { |k, v| k + 1 == v }      # => {10=>11, 5=>6, 7=>8})
     # hash_2.my_select                            # => {4=>4}
     def my_select(&prc)
-
+        prc ||= Proc.new{|k,v| k == v}
+        self.select(&prc)
     end
 end
 
@@ -84,7 +85,21 @@ class String
     # "cats".substrings     # => ["c", "ca", "cat", "cats", "a", "at", "ats", "t", "ts", "s"]
     # "cats".substrings(2)  # => ["ca", "at", "ts"]
     def substrings(length = nil)
-
+        if length != nil
+            string = ""
+            substring = []
+            self.each_char do |char|
+                self.each_char do |char2|
+                    if string.length < length
+                        string << char
+                    else
+                        substring << string
+                        string = ""
+                    end
+                end
+            end
+        end
+        substring
     end
 
 
