@@ -10,11 +10,11 @@ class Player
     def guess
         puts "#{self.name} enter a letter: "
         letter = gets.chomp
-        if letter.length > 1 || !@alphabet.include?(letter)
+        if letter.length > 1 || !@alphabet.include?(letter.downcase)
             puts "must enter a single letter"
             self.guess
         else
-            letter
+            letter.downcase
         end
     end
 
