@@ -145,7 +145,7 @@ class Game
 
     def run
         # rounds of the game are played until there is only one player with less than 5 losses
-        self.play_round until @players.values.one?{|loss| loss < 3}
+        self.play_round until @players.values.one?{|loss| loss < 5}
         puts "G  A  M  E     O  V  E  R"
         puts "-----FINAL SCOREBOARD---------"
         @players.keys.each do |player|
