@@ -1,6 +1,6 @@
 require_relative "game"
 
-ghost = Game.new(Player.new("player 1"), Player.new("player 2"))
+ghost = Game.new(3)
 
 ghost.run
 # until ghost.lose? do
