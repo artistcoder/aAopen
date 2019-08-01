@@ -11,8 +11,22 @@ class Game
         # create a dictionary hash, where all keys are dictionary entries and their asssociated value is nil
         # initialized a losses hash, all player keys are set with a loss key of 0
         # creates a GHOST string to translate the number of losses to the correct fragment of GHOSTß
-        @players = Hash.new(0)
-        n.times do |i|
+        @players = Hash.new(0)   
+        #@current_player = nil
+        #@previous_player = nil
+        @num_players = n
+        @fragment = ""
+        #read text file into the program and assign the words as keys in a Hash with values of nil
+        @dictionary = {}
+            array = IO.readlines("dictionary.txt") 
+            array.each do |word|
+                @dictionary[word.chomp] = nil
+            end
+        @GHOST = "GHOST"
+    end
+
+    def player_name_entry
+        @num_players.times do |i|
             puts "please enter a name for player #{i+1}"
             puts "-----"
             player_name = gets.chomp
@@ -20,14 +34,9 @@ class Game
         end
         @current_player = @players.keys[0]
         @previous_player = @players.keys[1]
-        @fragment = ""
-        #read text file into the program and assign the words as keys in a Hash with values of nil
-        @dictionary = {}
-        array = IO.readlines("dictionary.txt") 
-        array.each do |word|
-            @dictionary[word.chomp] = nil
-        end
-        @GHOST = "GHOST"
+    end
+
+    def rules
         puts "R U L E S   O F   T H E   G A M E"
         puts "----------------------------------"
         puts "(1) All players start with a loss record of 0"
@@ -40,7 +49,6 @@ class Game
         puts "!!!The last player, who has not lost 5 times, wins!!!"
         puts "----------------------------------"
         puts "let's play!"
-
     end
 
     def play_round
@@ -51,30 +59,36 @@ class Game
         # if valid, checks if the player has lost (created a valid word) via the lose? method
         # if valid and did not lose, then current player is updated to next player
         # if not a valid fragment, then error message prints and method is called again on the same player
-       
+        puts " N E W   R O U N D"
         new_fragment = self.take_turn(@current_player)
         
         if valid_play?(new_fragment)
             @fragment = new_fragment
-            if self.lose?
+            if lose?
                 @fragment = ""
-                self.next_player
-                puts " N E W   R O U N D"
-                puts "--------------------------------------------------------------"
-                puts "<<< current word fragment is: #{@fragment}         >>>"
-               
+                next_player
+                print_current_word_fragment
             else
-                puts "--------------------------------------------------------------"
-                puts "<<< current word fragment is: #{@fragment}         >>>"
-                self.next_player
+                print_current_word_fragment
+                next_player
             end
         else
-            puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-            puts "#{new_fragment} is not the beginning of a word. Please enter a valid letter."
-            puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-            self.play_round
+            print_issue_word_not_a_possible_fragment(new_fragment)
+            play_round
         end
     end
+
+    def print_current_word_fragment
+        puts "--------------------------------------------------------------"
+                puts "<<< current word fragment is: #{@fragment}         >>>"
+    end
+
+    def print_issue_word_not_a_possible_fragment(new_fragment)
+        puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        puts "#{new_fragment} is not the beginning of a word. Please enter a valid letter."
+        puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    end
+
 
     def take_turn(player)
         # calls Player#guess for user to enter a letter
@@ -141,7 +155,6 @@ class Game
                 end
             end
             if @players[@current_player] == 5
-                
                 puts "OHHHHHH NOOOOOO! #{@current_player.name.upcase}!"
                 puts "You are out of the game. You made the word #{@fragment}, and completed the word GHOST"
                 puts "-----------SCOREBOARD-----------"
