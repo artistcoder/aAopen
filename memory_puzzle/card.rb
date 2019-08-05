@@ -6,7 +6,8 @@
 class Card
     ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-    attr_reader :face_value
+    attr_reader :face_down, :face_up
+    attr_accessor :face_value
 
   def initialize
     @face_value = ALPHABET.split("").sample
