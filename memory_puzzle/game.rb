@@ -10,28 +10,39 @@ class Game
 
     def play
         @game.populate_board
-        #until game_over?
+        until game_over?
             print "please enter a location: "
             @guessed_pos = gets.chomp
-            puts @guessed_pos
             @game.reveal(@guessed_pos)
+            make_guess(@guessed_pos)
+            system("clear")
             @game.display_board
-            puts @game[@guessed_pos].face_value
-            #makes_guess(guessed_pos)
-        #end
+        end
+        print " You Won!"
     end
 
     def game_over?
-        #check if all cards are revealed
+        @game.won?
     end
 
     def make_guess(guessed_pos)
         if @prev_guess == nil
             #if there is no previous guess
-            @board
             @prev_guess = guessed_pos
         else
-            #if another card was selected
+            #if a previous card was selected
+            if @game[@prev_guess] == @game[guessed_pos]
+                puts "Match!"
+                @game.reveal(guessed_pos)
+            else
+                print "Try again"
+                system("clear")
+                @game.reveal(guessed_pos)
+                @game.display_board
+                sleep(2)
+                @game[@prev_guess].hide
+                @game[guessed_pos].hide
+            end
             @prev_guess = nil
         end
 

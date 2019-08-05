@@ -75,6 +75,11 @@ class Board
     @board[r][c] = value
    end
 
+   def won?
+    cards = @board.flatten
+    cards.all?(&:face_up)
+   end
+
 end
 
 # test_board = Board.new(4)
