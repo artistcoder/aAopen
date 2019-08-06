@@ -4,14 +4,11 @@ class WordChainer
     attr_reader :dictionary
     def initialize(dictionary_file_name)
         @dictionary = Set.new IO.readlines(dictionary_file_name, chomp: true)
-        @current_words = []
-        @all_seen_words = []
     end
 
     def run(source, target)
-        @current_words << source
-        @all_seen_words = { source => nil }
-        while @current_words.length > 0
+        @current_words, @all_seen_words = [source], { source => nil }
+        while @current_words.length > 0 || !@all_seen_words.include?(target)
             explore_current_words
         end
         build_path(target)
@@ -43,11 +40,11 @@ class WordChainer
             end
         end
         @current_words = new_current_words
-        new_current_words.each do |current_word|
-            # print "current word is #{current_word} and it came from #{@all_seen_words[current_word]}"
-            # print "________________________________________"
-            #  puts
-        end
+        # new_current_words.each do |current_word|
+        #     # print "current word is #{current_word} and it came from #{@all_seen_words[current_word]}"
+        #     # print "________________________________________"
+        #     #  puts
+        # end
 
     end
 
