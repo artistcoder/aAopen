@@ -1,10 +1,10 @@
 require_relative "board"
 
-sudoku = Board.new("sudoku1.txt")
+sudoku = Board.new("sudoku1_almost.txt")
 sudoku.add_tiles_to_board
 sudoku.render
 
-#until solved get user input
+until sudoku.cols_solved? && sudoku.rows_solved?
     puts "Please enter a position:"
     position = gets.chomp
     puts "Please enter a guess for the position:"
@@ -12,7 +12,9 @@ sudoku.render
 
     sudoku[position] = guess
     sudoku.render
-    
+end
+
+puts "you won!"
 
 
 

@@ -8,7 +8,6 @@ class Board
     def initialize(grid_file)
         @grid = IO.readlines(grid_file, chomp: true)
         @board = Array.new(9){Array.new(9)}
-
     end
 
     def add_tiles_to_board
@@ -35,7 +34,7 @@ class Board
     end
 
     def render
-        puts "-------------------".colorize(:black)
+        puts "-------------------"
         @board.each do |sub_arr|
             print "|"
             sub_arr.each do |tile|
@@ -52,4 +51,51 @@ class Board
         end
     end
 
+    def solved?
+        rows_solved? && cols_solved && grids_solved
+    end
+
+    def rows_solved?
+        (0..8).all? do |row|
+            col_values = []
+            (0..8).each do |col|
+                col_values << @board[row][col].value.to_i
+            end
+            (1..9).all? do |num|
+                col_values.include?(num)
+            end
+        end
+    end      
+    #     @board.all? do |sub_arr|
+    #         row_values = []
+    #         sub_arr.each do |tile|
+    #             row_values << tile.value.to_i
+    #         end
+    #         (1..9).all? do |num|
+    #             row_values.include?(num)
+    #         end
+    #     end
+    # end
+
+    def cols_solved?
+       (0..8).all? do |col|
+            col_values = []
+            (0..8).each do |row|
+                col_values << @board[row][col].value.to_i
+            end
+            (1..9).all? do |num|
+                col_values.include?(num)
+            end
+        end
+    end
+    
+    def grids_solved?
+    end
+
+
 end
+
+sudoku = Board.new("sudoku1_almost.txt")
+sudoku.add_tiles_to_board
+sudoku.render
+sudoku.cols_solved?
