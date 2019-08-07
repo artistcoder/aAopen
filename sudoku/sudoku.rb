@@ -12,6 +12,7 @@ sudoku.render
 
     sudoku[position] = guess
     sudoku.render
+    
 
 
 

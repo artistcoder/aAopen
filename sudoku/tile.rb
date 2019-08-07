@@ -14,7 +14,7 @@ class Tile
         if !self.given
             @value = new_value
         else
-            print "Try again. Given value cannot be overwritten"
+            puts "!!! Error. Try again. Given value cannot be overwritten !!!"
         end
     end
 

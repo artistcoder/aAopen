@@ -53,7 +53,3 @@ class Board
     end
 
 end
-
-test_board = Board.new("sudoku1.txt")
-test_board.add_tiles_to_board
-test_board.render

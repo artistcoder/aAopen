@@ -1,4 +1,5 @@
 require_relative "card"
+require "colorize"
 
 class Board
     attr_reader :board
@@ -40,7 +41,7 @@ class Board
     def display_board
         print_rows
         @board.each_with_index do |sub_arr,idx|
-            print idx.to_s + " "
+            print idx.to_s.colorize(:blue) + " "
             sub_arr.each do |card|
                 print card.face_value if card.face_up
                 print " " if card.face_down
@@ -53,7 +54,7 @@ class Board
     def print_rows
         print "  "
         @num_rows_and_cols.times do |i|
-            print i.to_s + " "
+            print i.to_s.colorize(:blue) + " "
         end
         puts
     end
