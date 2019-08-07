@@ -10,15 +10,12 @@ class Tile
         @given = false
     end
 
-    def color_given_numbers(value)
-       value.colorize(:magenta) if self.given
-    end
-
     def value=(new_value)
         if !self.given
             @value = new_value
         else
             print "Try again. Given value cannot be overwritten"
+        end
     end
 
  
