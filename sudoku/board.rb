@@ -19,9 +19,6 @@ class Board
     end
 
     def create_tile(idx_1,idx_2)
-        #called by add_tiles_to_board
-        #creates new tiles. assigns tiles a number value via grid. 
-        #makes given = true if value of tile is != 0
         tile = Tile.new
         tile.value = @grid[idx_1][idx_2]
         tile.given = true if tile.value != "0"
@@ -52,30 +49,18 @@ class Board
     end
 
     def solved?
-        rows_solved? && cols_solved && grids_solved
+        rows_solved? && cols_solved? && grids_solved?
     end
 
     def rows_solved?
         (0..8).all? do |row|
-            col_values = []
+            row_values = []
             (0..8).each do |col|
-                col_values << @board[row][col].value.to_i
+                row_values << @board[row][col].value.to_i
             end
-            (1..9).all? do |num|
-                col_values.include?(num)
-            end
+            required_nums_included?(row_values)
         end
     end      
-    #     @board.all? do |sub_arr|
-    #         row_values = []
-    #         sub_arr.each do |tile|
-    #             row_values << tile.value.to_i
-    #         end
-    #         (1..9).all? do |num|
-    #             row_values.include?(num)
-    #         end
-    #     end
-    # end
 
     def cols_solved?
        (0..8).all? do |col|
@@ -83,19 +68,28 @@ class Board
             (0..8).each do |row|
                 col_values << @board[row][col].value.to_i
             end
-            (1..9).all? do |num|
-                col_values.include?(num)
+            required_nums_included?(col_values)
+        end
+    end
+
+    def required_nums_included?(value_array)
+        (1..9).all? do |num|
+            value_array.include?(num)
+        end
+    end
+
+    def grids_solved?
+        (0..2).all? do |j|
+            (0..2).all? do |i|
+                grid_values = []
+                    (0+(j*3)..2+(j*3)).each do |row|
+                        (0+(i*3)..2+(i*3)).each do |col|
+                            grid_values << @board[row][col].value.to_i
+                        end
+                     end
+                required_nums_included?(grid_values)
             end
         end
     end
-    
-    def grids_solved?
-    end
-
 
 end
-
-sudoku = Board.new("sudoku1_almost.txt")
-sudoku.add_tiles_to_board
-sudoku.render
-sudoku.cols_solved?
