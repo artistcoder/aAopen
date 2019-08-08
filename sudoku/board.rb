@@ -36,7 +36,7 @@ class Board
             print "|"
             sub_arr.each do |tile|
                 if tile.value != "0" && tile.given
-                    print tile.value.colorize(:blue) + "|"
+                    print tile.value.colorize(:magenta) + "|"
                 elsif tile.value != "0" && !tile.given
                     print tile.value + "|"
                 else
