@@ -9,30 +9,33 @@ class Maze
 # add "stuck spots to ''do not go array'''"
 #< if stuck, go back 1 position
 # note prior position to avoid, avoid and go to next available position..loop>
+attr_reader :maze_map, :map_height, :map_width
 
 def initialize(maze_file)
     #maze map is a 2x2 array
-    @maze_map = IO.readlines(maze_file)
-    @loc = find_s
-end
-
+    @maze_map = IO.readlines(maze_file, chomp: true)
+    @map_height =  @maze_map.length
+    @map_width =  @maze_map[0].length
+    # @loc = find_s
 end
 
 def find_s
-    puts "hi"
-    @maze_map.each do |row, row_idx|
-        @maze_map.each do |ele, col_idx|
-            puts @maze_map[row_idx][col_idx]
-            if ele == "S"
-                puts row_idx.to_s + ", " + col_idx.to_s
-            end
+    @maze_map.each_with_index do |row, row_idx|
+        row.each_char.with_index do |char, col_idx|
+            return row_idx, col_idx if char == "S"                
         end
     end
+end
 
 end
 
 
-Maze.new("example_1_maze.txt")
+play_maze = Maze.new("example_1_maze.txt")
+p play_maze.map_height
+p play_maze.map_width
+r,c = play_maze.find_s
+p [r,c]
+#puts play_maze.maze_map[6][1]
 
 # if $PROGRAM_NAME == __FILE__
 #     Maze.new("example_1_maze_map.txt")
