@@ -8,8 +8,6 @@ class Game
     def initialize(n)
         @players = Hash.new(0)
         @num_players = n
-        # @current_player = @players.keys[0]
-        # @previous_player = @players.keys[1]
         @fragment = ""
         @dictionary = {}
         @GHOST = "GHOST"

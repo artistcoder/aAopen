@@ -1,10 +1,9 @@
 class Player
-    
+    ALPHABET = "abcdefghijklmnopqrstuvwxyz"
     attr_accessor :name
-
+    
     def initialize(name)
         @name = name
-        @alphabet = "abcdefghijklmnopqrstuvwxyz"
     end
 
     def guess
@@ -14,7 +13,7 @@ class Player
     end
 
     def validate_guess(letter)
-        if letter.length > 1 || !@alphabet.include?(letter.downcase)
+        if letter.length > 1 || !ALPHABET.include?(letter.downcase)
             invalid_entry_error
             self.guess
         else
@@ -28,6 +27,4 @@ class Player
         puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
     end
     
-
-
 end
