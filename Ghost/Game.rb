@@ -2,6 +2,7 @@
 class Game
     NUM_OF_LOSSES = 5
     require_relative "player"
+    require_relative "aiplayer"
     
     attr_accessor :fragment
     attr_reader :current_player, :previous_player, :dictionary 
@@ -84,7 +85,8 @@ class Game
     def take_turn(player)
         # calls Player#guess for user to enter a letter
         # returns the existing fragment + new letter
-        letter = player.guess
+        letter = player.guess if player.instance_of? Player
+        letter = player.guess(@fragment) if player.instance_of? AiPlayer
         @fragment + letter
     end
 
