@@ -23,11 +23,10 @@ class Game
         @fragment = ""
         #read text file into the program and assign the words as keys in a Hash with values of nil
         @dictionary = {}
-        array = IO.readlines("dictionary.txt") 
-        array.each do |word|
-            @dictionary[word.chomp] = nil
-        end
         @GHOST = "GHOST"
+    end
+
+    def rules
         puts "R U L E S   O F   T H E   G A M E"
         puts "----------------------------------"
         puts "(1) All players start with a loss record of 0"
@@ -40,7 +39,13 @@ class Game
         puts "!!!The last player, who has not lost 5 times, wins!!!"
         puts "----------------------------------"
         puts "let's play!"
+    end
 
+    def populate_dictionary
+        array = IO.readlines("dictionary.txt") 
+        array.each do |word|
+            @dictionary[word.chomp] = nil
+        end
     end
 
     def play_round
@@ -157,11 +162,13 @@ class Game
 
     def run
         # rounds of the game are played until there is only one player with less than 5 losses
+        populate_dictionary
+        rules
         self.play_round until @players.values.one?{|loss| loss < 5}
-        puts "G  A  M  E     O  V  E  R"
-        puts "-----FINAL SCOREBOARD---------"
-        @players.keys.each do |player|
-            puts "     #{player.name.upcase} : #{@GHOST[0...@players[player]]}"
+            puts "G  A  M  E     O  V  E  R"
+            puts "-----FINAL SCOREBOARD---------"
+            @players.keys.each do |player|
+                puts "     #{player.name.upcase} : #{@GHOST[0...@players[player]]}"
         end
         puts        
         #puts "#{@current_player.name} wins!"
