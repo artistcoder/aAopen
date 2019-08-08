@@ -1,5 +1,6 @@
 #require 'byebug'
 class Game
+    NUM_OF_LOSSES = 2
     require_relative "player"
     
     attr_accessor :fragment
@@ -51,37 +52,34 @@ class Game
     end
 
     def play_round
-        # prints the current word fragment
-        # calls on Game#take turn method for current player
-        # returns the new word fragment created by the current player
-        # checks if the word fragments is valid via the valid_play? method
-        # if valid, checks if the player has lost (created a valid word) via the lose? method
-        # if valid and did not lose, then current player is updated to next player
-        # if not a valid fragment, then error message prints and method is called again on the same player
-       
         new_fragment = self.take_turn(@current_player)
-        
         if valid_play?(new_fragment)
             @fragment = new_fragment
-            if self.lose?
-                @fragment = ""
-                self.next_player
-                puts " N E W   R O U N D"
-                puts "--------------------------------------------------------------"
-                puts "<<< current word fragment is: #{@fragment}         >>>"
-               
-            else
-                puts "--------------------------------------------------------------"
-                puts "<<< current word fragment is: #{@fragment}         >>>"
-                self.next_player
-            end
+            new_round_display if self.lose? && !self.game_over
+            word_fragment_display if !self.game_over
+            self.next_player
         else
-            puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-            puts "#{new_fragment} is not the beginning of a word. Please enter a valid letter."
-            puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+            fragment_not_a_word_error(new_fragment)
             self.play_round
         end
     end
+
+    def new_round_display
+        puts
+        puts " N E W   R O U N D"
+    end
+
+    def word_fragment_display
+        puts "--------------------------------------------------------------"
+        puts "<<< current word fragment is: #{@fragment}         >>>"
+    end
+
+    def fragment_not_a_word_error(new_fragment)
+        puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        puts "#{new_fragment} is not the beginning of a word. Please enter a valid letter."
+        puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    end
+
 
     def take_turn(player)
         # calls Player#guess for user to enter a letter
@@ -110,15 +108,14 @@ class Game
         # if not, check the next next player (etc)
         # % used for instances where the next players are at the beginning of the hash, and the current player is at
         #end of the hash
-        num_players = @players.keys.length
         current_player_loc = @players.keys.index(@current_player)
         @previous_player = @players.keys[current_player_loc]
             
-        (1...num_players).each do |i|
-            new_index = (current_player_loc + i) % num_players
+        (1...@num_players).each do |i|
+            new_index = (current_player_loc + i) % @num_players
             potential_curr_player = @players.keys[new_index]
-            if @players[potential_curr_player] < 5
-                @current_player = @players.keys[new_index]
+            if @players[potential_curr_player] < NUM_OF_LOSSES
+                @current_player = potential_curr_player
                 break
             end
         end
@@ -127,7 +124,7 @@ class Game
 
     def out_of_game(player)
         #not currently in use. quick method to check is player is out of the game
-        return true if @players[player] >= 5
+        return true if @players[player] >= NUM_OF_LOSSES
         return false
     end
 
@@ -140,39 +137,54 @@ class Game
         if @dictionary.keys.include?(@fragment)
             @players[@current_player] += 1
             puts "-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*"
-            if @players[@current_player] < 5
-                puts "#{@current_player.name.upcase}! You lost this round. You made the word #{@fragment}"
-                puts "-----------SCOREBOARD-----------"
-                @players.keys.each do |player|
-                    puts "     #{player.name.upcase} : #{@GHOST[0...@players[player]]}"
-                end
-            end
-            if @players[@current_player] == 5
-                
-                puts "OHHHHHH NOOOOOO! #{@current_player.name.upcase}!"
-                puts "You are out of the game. You made the word #{@fragment}, and completed the word GHOST"
-                puts "-----------SCOREBOARD-----------"
-                @players.keys.each do |player|
-                    puts "     #{player.name.upcase} : #{@GHOST[0...@players[player]]}"
-                end
-            end
+            lose_round?
+            lost_the_game?
+            @fragment = ""
             return true
         else
             return false
         end
     end
 
+    def lose_round?
+        if @players[@current_player] < NUM_OF_LOSSES 
+            puts "#{@current_player.name.upcase}! You lost this round. You made the word #{@fragment}"
+            scoreboard_display
+        end
+    end
+
+    def lost_the_game?
+        if @players[@current_player] == NUM_OF_LOSSES  
+            puts "OHHHHHH NOOOOOO! #{@current_player.name.upcase}!"
+            puts "You are out of the game. You made the word #{@fragment}, and completed the word GHOST"
+            scoreboard_display
+        end
+    end
+
+    def scoreboard_display
+        puts "-----------SCOREBOARD-----------"
+        @players.keys.each do |player|
+            puts "     #{player.name.upcase} : #{@GHOST[0...@players[player]]}"
+        end
+    end
+
+
+    def game_over
+        @players.values.one?{|loss| loss < NUM_OF_LOSSES}
+    end
+
+
     def run
         # rounds of the game are played until there is only one player with less than 5 losses
         populate_dictionary
         rules
         get_player_names
-        self.play_round until @players.values.one?{|loss| loss < 5}
-            puts "G  A  M  E     O  V  E  R"
-            puts "-----FINAL SCOREBOARD---------"
-            @players.keys.each do |player|
-                puts "     #{player.name.upcase} : #{@GHOST[0...@players[player]]}"
-        end
+        self.play_round until game_over
+        puts
+        puts "G  A  M  E     O  V  E  R"
+        puts
+        puts "-----------F I N A L-----------"
+        scoreboard_display
         puts        
         #puts "#{@current_player.name} wins!"
     end
