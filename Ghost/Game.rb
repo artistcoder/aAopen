@@ -1,6 +1,6 @@
 #require 'byebug'
 class Game
-    NUM_OF_LOSSES = 2
+    NUM_OF_LOSSES = 5
     require_relative "player"
     
     attr_accessor :fragment
@@ -89,10 +89,6 @@ class Game
     end
 
     def valid_play?(new_frag)
-        # creates new dictionary of word fragments where all words are the same length as the current word fragment
-        # checks if current word fragment can be found in new dictionary
-        # if word cannot be found, then false is returned -- word fragment is not valid
-        # if word is found, then true is returned
         length = new_frag.length
         snipped_dictionary = @dictionary.keys.map do |word|
             word[0...length]
@@ -122,18 +118,8 @@ class Game
         
     end
 
-    def out_of_game(player)
-        #not currently in use. quick method to check is player is out of the game
-        return true if @players[player] >= NUM_OF_LOSSES
-        return false
-    end
-
 
     def lose?
-        # checks if existing word fragment is in the dictionary aka a real word. 
-        # if so, player has lost,  and their Hash loss value is increased by 1
-        # this is the end a round, so the new scoreboard is printed and true (the player did lose) is returned
-        #if not, false (player did not lose) is returned
         if @dictionary.keys.include?(@fragment)
             @players[@current_player] += 1
             puts "-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*"
