@@ -6,27 +6,17 @@ class Game
     attr_reader :current_player, :previous_player, :dictionary 
 
     def initialize(n)
-        # sets a current player (defaults to player 1), and previous player (defaults to player 2)
-        # initializes a word fragment to an empty string
-        # create a dictionary hash, where all keys are dictionary entries and their asssociated value is nil
-        # initialized a losses hash, all player keys are set with a loss key of 0
-        # creates a GHOST string to translate the number of losses to the correct fragment of GHOSTß
         @players = Hash.new(0)
-        n.times do |i|
-            puts "please enter a name for player #{i+1}"
-            puts "-----"
-            player_name = gets.chomp
-            @players[Player.new(player_name)] = 0
-        end
-        @current_player = @players.keys[0]
-        @previous_player = @players.keys[1]
+        @num_players = n
+        # @current_player = @players.keys[0]
+        # @previous_player = @players.keys[1]
         @fragment = ""
-        #read text file into the program and assign the words as keys in a Hash with values of nil
         @dictionary = {}
         @GHOST = "GHOST"
     end
 
     def rules
+        puts
         puts "R U L E S   O F   T H E   G A M E"
         puts "----------------------------------"
         puts "(1) All players start with a loss record of 0"
@@ -46,6 +36,20 @@ class Game
         array.each do |word|
             @dictionary[word.chomp] = nil
         end
+    end
+
+    def get_player_names
+        @num_players.times do |i|
+            puts "please enter a name for player #{i+1} : "
+            player_name = gets.chomp
+            @players[Player.new(player_name)] = 0
+        end
+        set_initial_players
+    end
+
+    def set_initial_players
+        @current_player = @players.keys[0]
+        @previous_player = @players.keys[1]
     end
 
     def play_round
@@ -164,6 +168,7 @@ class Game
         # rounds of the game are played until there is only one player with less than 5 losses
         populate_dictionary
         rules
+        get_player_names
         self.play_round until @players.values.one?{|loss| loss < 5}
             puts "G  A  M  E     O  V  E  R"
             puts "-----FINAL SCOREBOARD---------"
