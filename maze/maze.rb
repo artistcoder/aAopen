@@ -35,17 +35,15 @@ class Maze
             @path << @current_loc
             return true
         end
-        return false
+        false
     end
-
 
     def display_path
         @path.each do |coordinate|
-            self[coordinate] = "+"
+            self[coordinate] = "@"
         end
         puts @maze_map
     end
-
 
     def not_a_dead_end(direction)
         return false if @dead_ends.include?(direction)
@@ -78,6 +76,7 @@ class Maze
 end
 
 
-maze = Maze.new("example_1_maze.txt")
+maze = Maze.new("example_2_maze.txt")
 maze.make_path
-#maze.display_path
+
+#missing logic to inform user that a path is not possible (example 3)
