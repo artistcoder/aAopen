@@ -4,24 +4,26 @@ class KnightPathFinder
     
     def initialize(pos)
         @starting_pos = pos
-        self.root_node = PolyTreeNode.new(@starting_pos)
+        #self.root_node = PolyTreeNode.new(@starting_pos)
         @considered_positions = [@starting_pos]
         build_move_tree
     end
 
     def build_move_tree
+        self.root_node = PolyTreeNode.new(@starting_pos)
+
     end
 
     def self.valid_moves(pos)
-        #return possible new positions
-        valid_move =[]
+        valid_moves =[]
         x,y = pos
         i = 0
         while i < 8
             new_x, new_y = x + X_MOVES[i], y + Y_MOVES[i]
-            valid_move << [new_x, new_y] if in_bounds(new_x,new_y)
+            valid_moves << [new_x, new_y] if in_bounds(new_x,new_y)
             i += 1
         end
+        valid_moves
     end
 
     def in_bounds(new_x,new_y)
@@ -43,5 +45,6 @@ class PolyTreeNode
         @value, @children, @parent = root_node, [], nil
     end
 
-
 end
+
+test = KnightPathFinder.new([0,0])
