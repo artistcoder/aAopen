@@ -17,14 +17,16 @@ class TicTacToeNode
   # the current move.
   def children
     possible_moves = @board.select{|position| position.empty?}
-    possible_moves.each do |possible_move|
+    game_states = possible_moves.map do |possible_move|
+      prev_move_pos = possible_move
       duped_board = @board.deep_dup
-      duped_board[possible_move] = @next_mover_mark
-     
+      duped_board[possible_move] = self.next_mover_mark
+      next_mover_mark = (self.next_mover_mark == :x ? :o : :x)
+      TicTacToeNode.new(duped_board, next_mover_mark, possible_move)
     end
-
+    game_states
   end
-end
+
 
 class Array
   def deep_dup
