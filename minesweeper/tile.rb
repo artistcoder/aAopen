@@ -11,9 +11,4 @@ class Tile
         @location = nil,nil
     end
 
-    def inspect
-        @fringe.inspect
-    end
-
-   
 end

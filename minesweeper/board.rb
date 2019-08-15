@@ -1,4 +1,5 @@
 require_relative 'tile'
+require 'colorize'
 
 class Board
     attr_reader :grid
@@ -11,6 +12,14 @@ class Board
         add_bombs
         count_surrounding_bombs
         fringe_tiles
+    end
+
+    def set_tile_location
+        @grid.each_with_index do |row,x|
+            row.each_with_index do |tile,y|
+                tile.location = x,y
+            end
+        end
     end
 
     def add_bombs
@@ -27,17 +36,9 @@ class Board
         end
     end
 
-    def set_tile_location
-        @grid.each_with_index do |row,x|
-            row.each_with_index do |tile,y|
-                tile.location = x,y
-            end
-        end
-    end
-
     def count_surrounding_bombs
-        @grid.each_with_index do |row,x|
-            row.each_with_index do |tile,y|
+        @grid.each do |row|
+            row.each do |tile|
                 neighbor_tiles(tile).each do |n_tile|
                     tile.num_of_surrounding_bombs += 1 if n_tile.value == "B"
                 end
@@ -53,14 +54,15 @@ class Board
         end
     end
 
-
     def update_board(user_guess)
         x,y = user_guess.split(/[\s,]/).map(&:to_i)
-        queue = [@grid[x][y]]
-        visited = [@grid[x][y]]
+        start_tile = @grid[x-1][y-1]
+        queue = [start_tile]
+        visited = [start_tile]
         until queue.empty?
             current_tile = queue.shift
             current_tile.clicked = true
+            return if current_tile.value == "B"
             if neighbor_tiles(current_tile).all? {|tile| tile.value != "B"}
                 neighbor_tiles(current_tile).each do |tile|
                     if !visited.include?(tile)
@@ -68,16 +70,6 @@ class Board
                         visited << tile
                     end
                 end
-            end
-        end
-    end
-
-
-    def reveal_all?(x,y)
-        NEIGHBOR_COORDINATE_DELTAS.all? do |delta|
-            dx, dy = delta
-            if (x+dx > -1 && x+dx < 9) && (y+dy > -1 && y+dy < 9)
-                @grid[x+dx][y+dy].value != "B"
             end
         end
     end
@@ -94,41 +86,44 @@ class Board
         neighbors
     end
 
-
-
-    
     def render
-        @grid.each do |row|
+        print " 123456789".colorize(:blue)
+        puts
+        @grid.each_with_index do |row, i|
+            print (i+1).to_s.colorize(:blue)
             row.each do |tile|
                 print tile.num_of_surrounding_bombs.to_s if (tile.clicked && tile.fringe)
-                print tile.value if (tile.clicked && !tile.fringe)
+                print tile.value if (tile.clicked && !tile.fringe && tile.value != "B")
+                print tile.value.colorize(:red) if (tile.clicked && tile.value == "B")
                 print "*" if !tile.clicked
             end
             puts
         end
     end
-    def render2
+
+    def reveal_bombs
         @grid.each do |row|
             row.each do |tile|
-                print tile.value
+                tile.clicked = true if tile.value == "B"
             end
-            puts
         end
     end
 
     def game_over?
         @grid.any? do |row|
             row.any? do |tile|
-                tile.value == "B" && tile.clicked == true
+                tile.value == "B" && tile.clicked
+            end
+        end
+    end
+
+    def won?
+        @grid.all? do |row|
+            row.all? do |tile|
+                tile.clicked && tile.value == "_" || !tile.clicked && tile.value == "B"
             end
         end
     end
 
 
-
 end
-
-
-bob = Board.new
-bob.render
-p bob
