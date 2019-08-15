@@ -12,10 +12,10 @@ class Array
     end
 end
 
-a = [[1,2],[9,10]]
+a = [4,5,6]
 d = a.dup
 dd = a.deep_dup
 
 
-a[0] << 3
+a[0] = 3
 p a,d,dd
