@@ -63,5 +63,5 @@ class Mancala
   end
 end
 
-# test = Mancala.new("jenna", "henry")
-# test.play
+test = Mancala.new("jenna", "henry")
+test.play
