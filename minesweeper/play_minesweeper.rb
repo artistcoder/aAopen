@@ -8,6 +8,7 @@ until minesweeper.game_over? || minesweeper.won?
     # minesweeper.render2
     minesweeper.render
     puts "Enter location to reveal cell (avoid the bombs!): "
+    puts "location format is x,y"
     user_guess = gets.chomp
     x,y = user_guess.split(/[\s,]/).map(&:to_i)
     if (x>9 || x<1) || (y>9 || y<1)

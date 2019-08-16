@@ -29,7 +29,7 @@ class Board
             x = rand(0..8)
             y = rand(0..8)
             if !coords.include?([x,y])
-                @grid[x][y].value = "B"
+                @grid[x][y].value = "💣"
                 coords << [x,y]
                 i += 1
             end
@@ -40,7 +40,7 @@ class Board
         @grid.each do |row|
             row.each do |tile|
                 neighbor_tiles(tile).each do |n_tile|
-                    tile.num_of_surrounding_bombs += 1 if n_tile.value == "B"
+                    tile.num_of_surrounding_bombs += 1 if n_tile.value == "💣"
                 end
             end
         end
@@ -49,7 +49,7 @@ class Board
     def fringe_tiles
         @grid.each_with_index do |row,x|
             row.each_with_index do |tile,y|
-                tile.fringe = true if tile.value != "B" && tile.num_of_surrounding_bombs > 0
+                tile.fringe = true if tile.value != "💣" && tile.num_of_surrounding_bombs > 0
             end
         end
     end
@@ -62,8 +62,8 @@ class Board
         until queue.empty?
             current_tile = queue.shift
             current_tile.clicked = true
-            return if current_tile.value == "B"
-            if neighbor_tiles(current_tile).all? {|tile| tile.value != "B"}
+            return if current_tile.value == "💣"
+            if neighbor_tiles(current_tile).all? {|tile| tile.value != "💣"}
                 neighbor_tiles(current_tile).each do |tile|
                     if !visited.include?(tile)
                         queue << tile
@@ -87,15 +87,17 @@ class Board
     end
 
     def render
-        print " 123456789".colorize(:blue)
+        print "  1 2 3 4 5 6 7 8 9".colorize(:blue)
         puts
         @grid.each_with_index do |row, i|
             print (i+1).to_s.colorize(:blue)
+            print " "
             row.each do |tile|
                 print tile.num_of_surrounding_bombs.to_s if (tile.clicked && tile.fringe)
-                print tile.value if (tile.clicked && !tile.fringe && tile.value != "B")
-                print tile.value.colorize(:red) if (tile.clicked && tile.value == "B")
+                print tile.value if (tile.clicked && !tile.fringe && tile.value != "💣")
+                print "💣" if (tile.clicked && tile.value == "💣")
                 print "*" if !tile.clicked
+                print " "
             end
             puts
         end
@@ -104,7 +106,7 @@ class Board
     def reveal_bombs
         @grid.each do |row|
             row.each do |tile|
-                tile.clicked = true if tile.value == "B"
+                tile.clicked = true if tile.value == "💣"
             end
         end
     end
@@ -112,7 +114,7 @@ class Board
     def game_over?
         @grid.any? do |row|
             row.any? do |tile|
-                tile.value == "B" && tile.clicked
+                tile.value == "💣" && tile.clicked
             end
         end
     end
@@ -120,7 +122,7 @@ class Board
     def won?
         @grid.all? do |row|
             row.all? do |tile|
-                tile.clicked && tile.value == "_" || !tile.clicked && tile.value == "B"
+                tile.clicked && tile.value == "_" || !tile.clicked && tile.value == "💣"
             end
         end
     end
