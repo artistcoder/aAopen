@@ -17,7 +17,7 @@ class NullPiece < Piece
         raise ArgumentError.new("Invalid move: chess tile cannot be moved")
     end
     def symbol
-       "□"
+       " "
     end
 
 end
