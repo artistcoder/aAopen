@@ -6,9 +6,8 @@ class Rook < Piece
     include Slideable
 
     def symbol
-        "♖".colorize(@color)
+        "♖".colorize(color)
     end
-
 
     protected
 
@@ -16,7 +15,3 @@ class Rook < Piece
         horizontal_vertical_dirs
     end
 end
-
-
-rook = Rook.new(:white, Board.new, [1,1])
-p rook.moves

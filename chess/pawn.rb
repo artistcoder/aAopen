@@ -34,6 +34,3 @@ class Pawn < Piece
 
 end
 
-
-pawn = Pawn.new(:black, Board.new, [6,1])
-p pawn.move_dirs

@@ -1,6 +1,4 @@
 require_relative 'piece'
-require_relative 'board'
-
 require_relative 'slideable'
 require 'colorize'
 
@@ -17,6 +15,3 @@ class Bishop < Piece
         diagonal_dirs
     end
 end
-
-bishop = Bishop.new(:white, Board.new, [1,1])
-p bishop.moves

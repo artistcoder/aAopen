@@ -16,6 +16,3 @@ class Queen < Piece
         horizontal_vertical_dirs + diagonal_dirs
     end
 end
-
-queen = Queen.new(:white, Board.new, [1,1])
-p queen.moves

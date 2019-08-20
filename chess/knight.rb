@@ -1,6 +1,4 @@
 require_relative 'piece'
-require_relative 'board'
-
 require_relative 'stepable'
 require 'colorize'
 
@@ -17,6 +15,3 @@ class Knight < Piece
     end
 
 end
-
-knight = Knight.new(:white, Board.new, [1,1])
-p knight.moves
