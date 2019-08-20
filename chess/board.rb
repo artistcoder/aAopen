@@ -7,7 +7,6 @@ class Board
     require_relative 'king'
     require_relative 'pawn'
     require_relative 'nullpiece'
-    require 'colorize'
     attr_reader :board
 
     def initialize
@@ -65,7 +64,7 @@ class Board
     end
 
     def move_piece(start_pos, end_pos)
-        if !in_bounds?(end_pos)
+        if !valid_pos?(end_pos)
             raise "Error: destination needs to be within boundary of the Chess Board"
         end
         piece = self[start_pos]
@@ -88,7 +87,7 @@ class Board
         return false
     end
 
-    def in_bounds?(end_pos)
+    def valid_pos?(end_pos)
         x,y = end_pos
         return true if x <=7 && x>=0 && y <=7 && y>=0
         return false
