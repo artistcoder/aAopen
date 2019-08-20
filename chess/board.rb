@@ -28,7 +28,7 @@ class Board
         piece = self[start_pos]
         if self[start_pos] == nil
             raise "Error: There is no piece at this location"
-        elsif !self.valid_pos?(end_pos)
+        elsif !self.valid_pos?(start_pos, end_pos)
             raise "Error: The new location is not valid"
         else
             piece.pos << end_pos
@@ -37,7 +37,9 @@ class Board
        end
     end
 
-    def valid_pos?(pos)
+    def valid_pos?(start_pos, end_pos)
+        return true if self[end_pos] == nil || self[start_pos].color != self[end_pos].color
+        return false
     end
 
 
