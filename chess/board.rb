@@ -8,7 +8,7 @@ class Board
     require_relative 'pawn'
     require_relative 'nullpiece'
     require 'colorize'
-
+    attr_reader :board
 
     def initialize
         # @board = Array.new(8) do |r|
@@ -94,34 +94,23 @@ class Board
         return false
     end
 
-    def render
-        @board.each_with_index do |row, r|
-            row.each_with_index do |piece, c|
-                if c % 2 ==0 && r % 2 == 0 || c % 2 !=0 && r % 2 != 0
-                    print piece.symbol.colorize(:background => :gray) + " ".colorize(:background => :gray)
-                else
-                    print piece.symbol.colorize(:background => :white) + " ".colorize(:background => :white)
-                end
-            end
-            puts
-        end
-    end
+   
 
 
 end
 
-board = Board.new
-pos = 3,3
-pos2 = 4,4
-# p board[pos].is_a? NullPiece
-# p board
-# board.move_piece([1,3], [3,3])
-# board.move_piece([6,4], [4,4])
+# board = Board.new
+# pos = 3,3
+# pos2 = 4,4
+# # p board[pos].is_a? NullPiece
+# # p board
+# # board.move_piece([1,3], [3,3])
+# # board.move_piece([6,4], [4,4])
 
-# board.move_piece([3,3], [4,4])
+# # board.move_piece([3,3], [4,4])
 
 
-# pos = 1,1
-# p board[pos].is_a? NullPiece
-# #board[0,0] = Bishop.new(:white, board, [0,0])
-board.render
+# # pos = 1,1
+# # p board[pos].is_a? NullPiece
+# # #board[0,0] = Bishop.new(:white, board, [0,0])
+# board.render
