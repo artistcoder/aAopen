@@ -2,13 +2,14 @@ class Board
     require_relative 'piece'
 
     def initialize
-        @board = Array.new(8){Array.new(8)}
-        @board.each_with_index do |row,idx|
-            row.each_with_index do |element, idx2|
-                if idx < 2 || idx > 5
-                    @board[idx][idx2] = Piece.new
+        @board = Array.new(8) do |r|
+            Array.new(8) do |c|
+                if r < 2
+                    Piece.new(:white, self, [r,c])
+                elsif r > 5
+                    Piece.new(:black, self, [r,c])
                 else
-                    @board[idx][idx2] = nil
+                    nil
                 end
             end
         end
@@ -42,5 +43,7 @@ class Board
 
 end
 
-board = Board.new
-p board[3][3]
+# board = Board.new
+
+# #board[0,0] = Bishop.new(:white, board, [0,0])
+# p board

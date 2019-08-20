@@ -1,7 +1,16 @@
-class Piece
+require_relative 'board'
 
-    def initialize
-        @pos = []
+class Piece
+    attr_reader :color, :pos
+    attr_accessor :board
+
+    def initialize(color,board,pos)
+        @color, @board, @pos = color, board, pos
+    end
+
+    def symbol
+        " "
     end
 
 end
+
