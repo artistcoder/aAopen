@@ -15,10 +15,12 @@ module Slideable
         x,y = @pos
         move_dirs.each do |dx,dy|
             new_pos = x+dx,y+dy
-            if board[new_pos] == nil
-                moves += grow_unblocked_moves_in_dir(dx,dy)
-            elsif board[new_pos].color != self.color
-                moves << new_pos
+            if new_pos[0] >= 0 && new_pos[0] <=7 && new_pos[1] >=0 && new_pos[1] <=7
+                if board[new_pos].color == nil
+                    moves += grow_unblocked_moves_in_dir(dx,dy)
+                elsif board[new_pos].color != self.color
+                    moves << new_pos
+                end
             end
         end
         moves
@@ -43,7 +45,7 @@ module Slideable
 
     def valid_location?(new_pos)
         x,y = new_pos
-        return true if x >= 0 && x <= 7 && y >= 0 && y <= 7 && board[new_pos] == nil
+        return true if x >= 0 && x <= 7 && y >= 0 && y <= 7 && board[new_pos].color == nil
         return false
     end
 

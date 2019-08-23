@@ -11,5 +11,27 @@ class Piece
         " "
     end
 
+    def valid_moves
+        possible_moves = @board[@pos].moves
+        # p possible_moves
+        possible_moves.select{|end_pos| !move_into_check?(end_pos)}
+    end
+
+    def inspect
+        @value = self
+    end
+
+    private
+    def move_into_check?(end_pos)
+        dup_board = @board.dup
+        dup_board.move_piece(@pos, end_pos)
+        if dup_board.in_check?(@color)
+            return true
+        end
+        return false
+    end
+
+
+
 end
 

@@ -10,7 +10,8 @@ class Pawn < Piece
         moves = move_dirs.map do |dx,dy|
             [x+dx,y+dy]
         end
-        moves
+        valid_moves = moves.select{|x,y| x>=0 && x<=7 && y>=0 && y<=7}
+        valid_moves
     end
 
     def move_dirs
@@ -42,8 +43,8 @@ class Pawn < Piece
         x,y = pos
         deltas.each do |dx,dy|
             new_pos = x+dx,y+dy
-            if !board[new_pos].is_a? NullPiece
-                if board[new_pos].color != self.color
+            if new_pos[0] >= 0 && new_pos[0] <=7 && new_pos[1] >=0 && new_pos[1] <=7
+                if board[new_pos].class != NullPiece && board[new_pos].color != self.color
                     moves << [dx,dy]
                 end
             end
