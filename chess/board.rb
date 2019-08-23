@@ -10,17 +10,6 @@ class Board
     attr_reader :board
 
     def initialize
-        # @board = Array.new(8) do |r|
-        #     Array.new(8) do |c|
-        #         if r < 2
-        #             Piece.new(:white, self, [r,c])
-        #         elsif r > 5
-        #             Piece.new(:black, self, [r,c])
-        #         else
-        #             nil
-        #         end
-        #     end
-        # end
         @board = Array.new(8) do |r|
             Array.new(8) do |c|
                 if r == 0
@@ -133,9 +122,6 @@ class Board
             end
  
         end
-        # p dup_board
-        # p "-----------"
-        # p self
         dup_board
     end
 
@@ -145,6 +131,7 @@ class Board
         @board.each do |row|
             row.each {|piece| color_pieces << piece if piece.color == color}
         end
+        color_pieces
         if color_pieces.all?{|piece| piece.valid_moves.empty?} && in_check?(color)
             return true
         end
@@ -154,21 +141,3 @@ class Board
 
 
 end
-
-# board = Board.new 
-
-# p board.checkmate?(:magenta)
-# # pos = 3,3
-# pos2 = 4,4
-# # p board[pos].is_a? NullPiece
-# # p board
-# # board.move_piece([1,3], [3,3])
-# # board.move_piece([6,4], [4,4])
-
-# # board.move_piece([3,3], [4,4])
-
-
-# # pos = 1,1
-# # p board[pos].is_a? NullPiece
-# # #board[0,0] = Bishop.new(:white, board, [0,0])
-# board.render

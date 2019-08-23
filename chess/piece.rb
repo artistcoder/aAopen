@@ -12,8 +12,7 @@ class Piece
     end
 
     def valid_moves
-        possible_moves = @board[@pos].moves
-        # p possible_moves
+        possible_moves = self.moves
         possible_moves.select{|end_pos| !move_into_check?(end_pos)}
     end
 
@@ -30,7 +29,6 @@ class Piece
         end
         return false
     end
-
 
 
 end

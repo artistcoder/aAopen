@@ -15,11 +15,7 @@ class Pawn < Piece
     end
 
     def move_dirs
-        if at_start_row?
-            side_attacks + forward_steps + [[forward_dir*2,0]]
-        else
-            side_attacks + forward_steps
-        end
+        side_attacks + forward_steps
     end
 
     private
@@ -34,7 +30,17 @@ class Pawn < Piece
     end
 
     def forward_steps
-        [[forward_dir,0]]
+        x,y = pos
+        new_pos = x+forward_dir,y+0
+        start_new_pos = x+(2*forward_dir),y+0
+        forward_steps = []
+        if board[new_pos].class == NullPiece
+            forward_steps << [forward_dir,0]
+        end
+        if at_start_row? && board[start_new_pos].class == NullPiece
+            forward_steps << [forward_dir * 2,0]
+        end
+        forward_steps
     end
 
     def side_attacks

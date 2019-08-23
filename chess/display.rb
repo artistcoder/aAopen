@@ -53,7 +53,7 @@ until game.board.checkmate?(color_1) || game.board.checkmate?(color_2)
             p "please select location where piece should be moved"
         end
     rescue
-        put "Error"
+        puts "Error"
         retry
     end
 
@@ -62,7 +62,7 @@ until game.board.checkmate?(color_1) || game.board.checkmate?(color_2)
             end_pos = game.cursor.cursor_pos
         end
     rescue
-        put "error"
+        puts "error"
         retry
     end
 
@@ -71,4 +71,10 @@ until game.board.checkmate?(color_1) || game.board.checkmate?(color_2)
         start_pos, end_pos = [],[]
     end
 
+end
+
+if game.board.checkmate?(color_1)
+    puts "Checkmate! Color #{color_2} wins the game"
+else
+    puts "Checkmate! Color #{color_1} wins the game"
 end
