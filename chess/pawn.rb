@@ -10,8 +10,7 @@ class Pawn < Piece
         moves = move_dirs.map do |dx,dy|
             [x+dx,y+dy]
         end
-        valid_moves = moves.select{|x,y| x>=0 && x<=7 && y>=0 && y<=7}
-        valid_moves
+        moves.select{|x,y| on_board?(x,y)}
     end
 
     def move_dirs
@@ -30,9 +29,8 @@ class Pawn < Piece
     end
 
     def forward_steps
-        x,y = pos
-        new_pos = x+forward_dir,y+0
-        start_new_pos = x+(2*forward_dir),y+0
+        new_pos = calculate_new_pos(forward_dir,0)
+        start_new_pos = calculate_new_pos(2*forward_dir,0)
         forward_steps = []
         if board[new_pos].class == NullPiece
             forward_steps << [forward_dir,0]
@@ -46,10 +44,9 @@ class Pawn < Piece
     def side_attacks
         moves = []
         deltas = [[forward_dir,forward_dir],[forward_dir,-forward_dir]]
-        x,y = pos
         deltas.each do |dx,dy|
-            new_pos = x+dx,y+dy
-            if new_pos[0] >= 0 && new_pos[0] <=7 && new_pos[1] >=0 && new_pos[1] <=7
+            new_pos = calculate_new_pos(dx,dy)
+            if on_board?(new_pos[0],new_pos[1])
                 if board[new_pos].class != NullPiece && board[new_pos].color != self.color
                     moves << [dx,dy]
                 end

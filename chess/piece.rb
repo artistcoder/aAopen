@@ -20,6 +20,16 @@ class Piece
         @value = self
     end
 
+    def calculate_new_pos(dx,dy)
+        x,y = pos
+        [x+dx,y+dy]
+    end
+
+    def on_board?(x,y)
+        x>=0 && x<=7 && y>=0 && y<=7
+    end
+
+
     private
     def move_into_check?(end_pos)
         dup_board = @board.dup

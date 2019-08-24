@@ -99,9 +99,7 @@ class Board
         loc = []
         @board.each_with_index do |row, r|
             row.each_with_index do |piece,c|
-                if piece.class == King && piece.color == color
-                    loc = [r,c]
-                end
+                loc = [r,c] if piece.class == King && piece.color == color
              end
         end
         loc

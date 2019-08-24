@@ -40,41 +40,45 @@ color_1 = :green
 color_2 = :magenta
 start_pos = []
 end_pos = []
-game.render
+
 until game.board.checkmate?(color_1) || game.board.checkmate?(color_2)
-    p "please select piece to move"
-    game.cursor.get_input
-   
-    system("clear")
-    game.render
+    # print "please select piece to move"
+    # system("clear")
+    # game.render
+    
     begin
+        game.render
+        game.cursor.get_input
+        system("clear")
+        if end_pos.empty? && start_pos.empty? && !game.cursor.selected 
+            puts "select piece to move"
+        end
         if game.cursor.selected && start_pos.empty?
             start_pos = game.cursor.cursor_pos
-            p "please select location where piece should be moved"
+            puts " select location where piece should be moved"
         end
-    rescue
-        puts "Error"
-        retry
-    end
 
-    begin
         if !game.cursor.selected && end_pos.empty? && !start_pos.empty?
             end_pos = game.cursor.cursor_pos
         end
-    rescue
-        puts "error"
+
+        if !end_pos.empty? && !start_pos.empty? 
+            game.board.move_piece(start_pos,end_pos)
+            start_pos, end_pos = [],[]
+        end
+        game.render
+        system("clear") 
+    rescue RuntimeError => e
+        puts e
+        start_pos, end_pos = [],[]
         retry
     end
 
-    if !end_pos.empty? && !start_pos.empty? 
-        game.board.move_piece(start_pos,end_pos)
-        start_pos, end_pos = [],[]
-    end
 
 end
-
+game.render
 if game.board.checkmate?(color_1)
     puts "Checkmate! Color #{color_2} wins the game"
-else
+else       
     puts "Checkmate! Color #{color_1} wins the game"
 end

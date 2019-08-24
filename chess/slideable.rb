@@ -34,7 +34,7 @@ module Slideable
         x,y = @pos
         new_pos = x+dx, y+dy
         sub_moves = []
-        while valid_location?(new_pos)
+        while valid_location?(new_pos) && board[new_pos].color == nil
             sub_moves << new_pos
             x,y = new_pos
             new_pos = x+dx,y+dy
@@ -45,13 +45,15 @@ module Slideable
 
     def valid_location?(new_pos)
         x,y = new_pos
-        return true if x >= 0 && x <= 7 && y >= 0 && y <= 7 && board[new_pos].color == nil
+        return true if x >= 0 && x <= 7 && y >= 0 && y <= 7
         return false
     end
 
     def other_team_occupying_location?(new_pos)
-        if board[new_pos] != nil
-            return true if board[new_pos].color != self.color
+        if valid_location?(new_pos)
+            if board[new_pos].class != NullPiece 
+                return board[new_pos].color != self.color
+            end
         end
         return false
     end
