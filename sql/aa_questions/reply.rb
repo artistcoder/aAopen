@@ -1,5 +1,5 @@
 require_relative 'questions_database'
-
+require_relative 'question_follow'
 class Reply
     attr_accessor :id, :subject_question_id, :parent_reply, :reply_author_id, :body
 

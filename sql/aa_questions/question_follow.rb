@@ -1,4 +1,5 @@
 require_relative 'questions_database'
+require_relative 'user'
 
 class QuestionFollow
     attr_accessor :id, :author_id, :question_id
@@ -14,6 +15,27 @@ class QuestionFollow
         SQL
         data.nil? ? nil : QuestionFollow.new(data.pop)
     end
+
+    def self.followers_for_question_id(question_id)
+        followers = QuestionsDatabase.instance.execute(<<-SQL, question_id: question_id)
+            SELECT users.* FROM question_follows
+            JOIN users ON question_follows.author_id = users.id 
+            WHERE 
+                question_follows.question_id = :question_id
+        SQL
+        followers.empty? ? nil : followers.map{|user_data| User.new(user_data)}
+    end
+
+    def self.followed_questions_for_user_id(user_id)
+        questions = QuestionsDatabase.instance.execute(<<-SQL, author_id: user_id)
+            SELECT questions.* FROM question_follows
+            JOIN questions ON question_follows.question_id = questions.id 
+            WHERE 
+                question_follows.author_id = :author_id
+        SQL
+        questions.empty? ? nil : questions.map{|question_data| Question.new(question_data)}
+    end
+
 
     def initialize(options)
         @id = options['id']
