@@ -36,6 +36,18 @@ class QuestionFollow
         questions.empty? ? nil : questions.map{|question_data| Question.new(question_data)}
     end
 
+    def self.most_followed_questions(n)
+        n_questions = QuestionsDatabase.instance.execute(<<-SQL, n: n)
+            SELECT question_id, COUNT(author_id) AS num_of_followers
+            FROM question_follows
+            JOIN users ON question_follows.author_id = users.id 
+            GROUP BY question_id
+            ORDER BY num_of_followers DESC
+            LIMIT n
+        SQL
+    end
+
+
 
     def initialize(options)
         @id = options['id']

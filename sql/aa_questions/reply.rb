@@ -23,7 +23,7 @@ class Reply
     end
 
     def self.find_by_question_id(question_id)
-        data = QuestionsDatabase.instance.execute(<<-SQL, subject_question_id: question_id)
+        data = QuestionsDatabase.instance.execute(<<-SQL, :subject_question_id => question_id)
             SELECT * FROM replies WHERE replies.subject_question_id = :subject_question_id
         SQL
         data.nil? ? nil : data.map{|datum| Reply.new(datum)}
