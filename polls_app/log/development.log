@@ -1,0 +1,284 @@
+  [1m[35m (426.6ms)[0m  [1m[35mCREATE DATABASE "polls_app_development" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35m (357.5ms)[0m  [1m[35mCREATE DATABASE "polls_app_test" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35m (29.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  ↳ bin/rails:9
+  [1m[35m (41.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4042686100896465855)[0m
+  ↳ bin/rails:9
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Migrating to CreateUsers (20190905212024)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (47.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying NOT NULL)[0m
+  ↳ db/migrate/20190905212024_create_users.rb:3
+  [1m[35m (1.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(4042686100896465855)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4042686100896465855)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Migrating to CreateUsers (20190905212024)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (47.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying NOT NULL)[0m
+  ↳ db/migrate/20190905212024_create_users.rb:3
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_username" ON "users"  ("username")[0m
+  ↳ db/migrate/20190905212024_create_users.rb:6
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20190905212024"]]
+  ↳ bin/rails:9
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+Migrating to CreatePolls (20190905212225)
+  [1m[35m (40.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (6.8ms)[0m  [1m[35mCREATE TABLE "polls" ("id" bigserial primary key, "title" character varying NOT NULL, "author_id" integer NOT NULL)[0m
+  ↳ db/migrate/20190905212225_create_polls.rb:3
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE  INDEX  "index_polls_on_author_id" ON "polls"  ("author_id")[0m
+  ↳ db/migrate/20190905212225_create_polls.rb:7
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20190905212225"]]
+  ↳ bin/rails:9
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+Migrating to CreateQuestions (20190905212234)
+  [1m[35m (39.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (7.7ms)[0m  [1m[35mCREATE TABLE "questions" ("id" bigserial primary key, "text" character varying NOT NULL, "author_id" integer NOT NULL, "poll_id" integer NOT NULL)[0m
+  ↳ db/migrate/20190905212234_create_questions.rb:3
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE  INDEX  "index_questions_on_poll_id" ON "questions"  ("poll_id")[0m
+  ↳ db/migrate/20190905212234_create_questions.rb:8
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE  INDEX  "index_questions_on_author_id" ON "questions"  ("author_id")[0m
+  ↳ db/migrate/20190905212234_create_questions.rb:9
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20190905212234"]]
+  ↳ bin/rails:9
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+Migrating to CreateAnswerChoices (20190905212243)
+  [1m[35m (40.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (7.2ms)[0m  [1m[35mCREATE TABLE "answer_choices" ("id" bigserial primary key, "text" character varying NOT NULL, "author_id" integer NOT NULL, "poll_id" integer NOT NULL, "question_id" integer NOT NULL)[0m
+  ↳ db/migrate/20190905212243_create_answer_choices.rb:3
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_answer_choices_on_author_id" ON "answer_choices"  ("author_id")[0m
+  ↳ db/migrate/20190905212243_create_answer_choices.rb:9
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE  INDEX  "index_answer_choices_on_poll_id" ON "answer_choices"  ("poll_id")[0m
+  ↳ db/migrate/20190905212243_create_answer_choices.rb:10
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX  "index_answer_choices_on_question_id" ON "answer_choices"  ("question_id")[0m
+  ↳ db/migrate/20190905212243_create_answer_choices.rb:11
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20190905212243"]]
+  ↳ bin/rails:9
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+Migrating to CreateResponses (20190905212253)
+  [1m[35m (40.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (5.2ms)[0m  [1m[35mCREATE TABLE "responses" ("id" bigserial primary key, "respondent_id" integer NOT NULL, "answer_choice_id" integer NOT NULL)[0m
+  ↳ db/migrate/20190905212253_create_responses.rb:3
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_responses_on_respondent_id" ON "responses"  ("respondent_id")[0m
+  ↳ db/migrate/20190905212253_create_responses.rb:8
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX  "index_responses_on_answer_choice_id" ON "responses"  ("answer_choice_id")[0m
+  ↳ db/migrate/20190905212253_create_responses.rb:9
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20190905212253"]]
+  ↳ bin/rails:9
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ bin/rails:9
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2019-09-05 22:19:57.097156"], ["updated_at", "2019-09-05 22:19:57.097156"]]
+  ↳ bin/rails:9
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(4042686100896465855)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4042686100896465855)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Migrating to RemoveAuthorId (20190905223333)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (47.3ms)[0m  [1m[35mALTER TABLE "answer_choices" DROP COLUMN "author_id"[0m
+  ↳ db/migrate/20190905223333_remove_author_id.rb:3
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "questions" DROP COLUMN "author_id"[0m
+  ↳ db/migrate/20190905223333_remove_author_id.rb:4
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20190905223333"]]
+  ↳ bin/rails:9
+  [1m[35m (1.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Load (1.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(4042686100896465855)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4042686100896465855)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Migrating to RemovePollId (20190905223648)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (1.1ms)[0m  [1m[35mALTER TABLE "answer_choices" DROP COLUMN "poll_id"[0m
+  ↳ db/migrate/20190905223648_remove_poll_id.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20190905223648"]]
+  ↳ bin/rails:9
+  [1m[35m (41.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ bin/rails:9
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(4042686100896465855)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:9
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ db/seeds.rb:9
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:9
+  [1m[36mUser Load (43.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ db/seeds.rb:10
+  [1m[36mPoll Load (31.1ms)[0m  [1m[34mSELECT "polls".* FROM "polls"[0m
+  ↳ db/seeds.rb:11
+  [1m[36mQuestion Load (36.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ db/seeds.rb:12
+  [1m[36mAnswerChoice Load (35.3ms)[0m  [1m[34mSELECT "answer_choices".* FROM "answer_choices"[0m
+  ↳ db/seeds.rb:13
+  [1m[36mResponse Load (44.4ms)[0m  [1m[34mSELECT "responses".* FROM "responses"[0m
+  ↳ db/seeds.rb:14
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username") VALUES ($1) RETURNING "id"[0m  [["username", "jennalee"]]
+  ↳ db/seeds.rb:16
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("username") VALUES ($1) RETURNING "id"[0m  [["username", "jessefur"]]
+  ↳ db/seeds.rb:17
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("username") VALUES ($1) RETURNING "id"[0m  [["username", "hpo"]]
+  ↳ db/seeds.rb:18
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("username") VALUES ($1) RETURNING "id"[0m  [["username", "sherbie"]]
+  ↳ db/seeds.rb:19
+  [1m[36mPoll Create (0.6ms)[0m  [1m[32mINSERT INTO "polls" ("title", "author_id") VALUES ($1, $2) RETURNING "id"[0m  [["title", "Dinner"], ["author_id", 3]]
+  ↳ db/seeds.rb:21
+  [1m[36mQuestion Create (0.6ms)[0m  [1m[32mINSERT INTO "questions" ("text", "poll_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Where to eat?"], ["poll_id", 1]]
+  ↳ db/seeds.rb:23
+  [1m[36mAnswerChoice Create (0.6ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Thai Farmhouse"], ["question_id", 1]]
+  ↳ db/seeds.rb:24
+  [1m[36mAnswerChoice Create (0.2ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "India House"], ["question_id", 1]]
+  ↳ db/seeds.rb:25
+  [1m[36mAnswerChoice Create (0.2ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Pizza Palace"], ["question_id", 1]]
+  ↳ db/seeds.rb:26
+  [1m[36mPoll Create (0.2ms)[0m  [1m[32mINSERT INTO "polls" ("title", "author_id") VALUES ($1, $2) RETURNING "id"[0m  [["title", "San Francisco"], ["author_id", 1]]
+  ↳ db/seeds.rb:28
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "poll_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Where to live?"], ["poll_id", 2]]
+  ↳ db/seeds.rb:29
+  [1m[36mAnswerChoice Create (0.2ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Inner Sunset"], ["question_id", 2]]
+  ↳ db/seeds.rb:30
+  [1m[36mAnswerChoice Create (0.2ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Albany"], ["question_id", 2]]
+  ↳ db/seeds.rb:31
+  [1m[36mAnswerChoice Create (0.2ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Cole Valley"], ["question_id", 2]]
+  ↳ db/seeds.rb:32
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "poll_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "How to commute?"], ["poll_id", 2]]
+  ↳ db/seeds.rb:34
+  [1m[36mAnswerChoice Create (0.2ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Car"], ["question_id", 3]]
+  ↳ db/seeds.rb:35
+  [1m[36mAnswerChoice Create (0.3ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Bike"], ["question_id", 3]]
+  ↳ db/seeds.rb:36
+  [1m[36mAnswerChoice Create (0.3ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "BART"], ["question_id", 3]]
+  ↳ db/seeds.rb:37
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ db/seeds.rb:9
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:9
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ db/seeds.rb:10
+  [1m[36mPoll Load (0.7ms)[0m  [1m[34mSELECT "polls".* FROM "polls"[0m
+  ↳ db/seeds.rb:11
+  [1m[36mQuestion Load (0.5ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+  ↳ db/seeds.rb:12
+  [1m[36mAnswerChoice Load (0.4ms)[0m  [1m[34mSELECT "answer_choices".* FROM "answer_choices"[0m
+  ↳ db/seeds.rb:13
+  [1m[36mResponse Load (0.4ms)[0m  [1m[34mSELECT "responses".* FROM "responses"[0m
+  ↳ db/seeds.rb:14
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("username") VALUES ($1) RETURNING "id"[0m  [["username", "jennalee"]]
+  ↳ db/seeds.rb:16
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("username") VALUES ($1) RETURNING "id"[0m  [["username", "jessefur"]]
+  ↳ db/seeds.rb:17
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("username") VALUES ($1) RETURNING "id"[0m  [["username", "hpo"]]
+  ↳ db/seeds.rb:18
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("username") VALUES ($1) RETURNING "id"[0m  [["username", "sherbie"]]
+  ↳ db/seeds.rb:19
+  [1m[36mPoll Create (0.4ms)[0m  [1m[32mINSERT INTO "polls" ("title", "author_id") VALUES ($1, $2) RETURNING "id"[0m  [["title", "Dinner"], ["author_id", 7]]
+  ↳ db/seeds.rb:21
+  [1m[36mQuestion Create (0.4ms)[0m  [1m[32mINSERT INTO "questions" ("text", "poll_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Where to eat?"], ["poll_id", 3]]
+  ↳ db/seeds.rb:23
+  [1m[36mAnswerChoice Create (0.4ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Thai Farmhouse"], ["question_id", 4]]
+  ↳ db/seeds.rb:24
+  [1m[36mAnswerChoice Create (0.2ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "India House"], ["question_id", 4]]
+  ↳ db/seeds.rb:25
+  [1m[36mAnswerChoice Create (0.2ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Pizza Palace"], ["question_id", 4]]
+  ↳ db/seeds.rb:26
+  [1m[36mPoll Create (0.2ms)[0m  [1m[32mINSERT INTO "polls" ("title", "author_id") VALUES ($1, $2) RETURNING "id"[0m  [["title", "San Francisco"], ["author_id", 5]]
+  ↳ db/seeds.rb:28
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "poll_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Where to live?"], ["poll_id", 4]]
+  ↳ db/seeds.rb:29
+  [1m[36mAnswerChoice Create (0.2ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Inner Sunset"], ["question_id", 5]]
+  ↳ db/seeds.rb:30
+  [1m[36mAnswerChoice Create (0.2ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Albany"], ["question_id", 5]]
+  ↳ db/seeds.rb:31
+  [1m[36mAnswerChoice Create (0.2ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Cole Valley"], ["question_id", 5]]
+  ↳ db/seeds.rb:32
+  [1m[36mQuestion Create (0.2ms)[0m  [1m[32mINSERT INTO "questions" ("text", "poll_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "How to commute?"], ["poll_id", 4]]
+  ↳ db/seeds.rb:34
+  [1m[36mAnswerChoice Create (0.2ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Car"], ["question_id", 6]]
+  ↳ db/seeds.rb:35
+  [1m[36mAnswerChoice Create (0.3ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "Bike"], ["question_id", 6]]
+  ↳ db/seeds.rb:36
+  [1m[36mAnswerChoice Create (0.2ms)[0m  [1m[32mINSERT INTO "answer_choices" ("text", "question_id") VALUES ($1, $2) RETURNING "id"[0m  [["text", "BART"], ["question_id", 6]]
+  ↳ db/seeds.rb:37
+  [1m[36mResponse Create (0.9ms)[0m  [1m[32mINSERT INTO "responses" ("respondent_id", "answer_choice_id") VALUES ($1, $2) RETURNING "id"[0m  [["respondent_id", 5], ["answer_choice_id", 13]]
+  ↳ db/seeds.rb:39
+  [1m[36mResponse Create (0.6ms)[0m  [1m[32mINSERT INTO "responses" ("respondent_id", "answer_choice_id") VALUES ($1, $2) RETURNING "id"[0m  [["respondent_id", 6], ["answer_choice_id", 12]]
+  ↳ db/seeds.rb:40
+  [1m[36mResponse Create (0.2ms)[0m  [1m[32mINSERT INTO "responses" ("respondent_id", "answer_choice_id") VALUES ($1, $2) RETURNING "id"[0m  [["respondent_id", 7], ["answer_choice_id", 13]]
+  ↳ db/seeds.rb:41
+  [1m[36mResponse Create (0.2ms)[0m  [1m[32mINSERT INTO "responses" ("respondent_id", "answer_choice_id") VALUES ($1, $2) RETURNING "id"[0m  [["respondent_id", 8], ["answer_choice_id", 18]]
+  ↳ db/seeds.rb:42
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:9
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mResponse Load (0.7ms)[0m  [1m[34mSELECT "responses".* FROM "responses"[0m
+  [1m[36mPoll Load (0.7ms)[0m  [1m[34mSELECT "polls".* FROM "polls"[0m
+  [1m[36mQuestion Load (0.8ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
