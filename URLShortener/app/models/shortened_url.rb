@@ -26,4 +26,16 @@ class ShortenedUrl < ApplicationRecord
     )
   end
 
+  def num_clicks
+    ShortenedUrl.all.select{ |su| su.short_url == self.short_url}
+
+  end
+
+  def num_uniques
+  end
+
+  def num_recent_uniques
+  end
+
+
 end
