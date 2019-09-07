@@ -1,4 +1,5 @@
 class AnswerChoice < ApplicationRecord
+    validates :text, presence: true, uniqueness: true
 
     belongs_to :question,
     class_name: :Question,
