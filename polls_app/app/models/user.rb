@@ -11,4 +11,8 @@ class User < ApplicationRecord
     class_name: :Response,
     foreign_key: :respondent_id,
     primary_key: :id
+
+    
+    
+
 end
