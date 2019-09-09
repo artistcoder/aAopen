@@ -32,4 +32,23 @@ class Question < ApplicationRecord
         # result_hash
     end
 
+    def result_sql
+        Question.find_by_sql(<<-SQL)
+            SELECT
+                answer_choices.text, COUNT(responses.id)
+            FROM
+                answer_choices
+            LEFT OUTER JOIN
+                responses ON 
+            LEFT OUTER JOIN
+                question ON question.id = answer_choices.question_id
+            GROUP BY
+                answer_choice.id
+            WHERE
+                question.id = ?
+
+        SQL
+    end
+
+
 end
