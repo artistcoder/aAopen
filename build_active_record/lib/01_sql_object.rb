@@ -46,14 +46,33 @@ class SQLObject
 
   def self.all
     # ...
+    all_records = DBConnection.execute(<<-SQL)
+    SELECT
+      *
+    FROM
+      #{self.table_name}
+    SQL
+
+    parse_all(all_records)
   end
 
   def self.parse_all(results)
     # ...
+    results.map{ |result| self.new(result) }
+
   end
 
   def self.find(id)
     # ...
+    item = DBConnection.execute(<<-SQL, id)
+      SELECT
+        *
+      FROM
+        #{table_name}
+      WHERE
+        #{table_name}.id = ?
+      SQL
+      parse_all(item).first
   end
 
   def initialize(params = {})
@@ -82,6 +101,16 @@ class SQLObject
 
   def insert
     # ...
+    col_names = self.class.columns.join(",")
+    question_marks = (["?"]*(self.class.columns.length)).join(",")
+   
+    DBConnection.execute(<<-SQL)
+      INSERT INTO
+        #{table_name} col_names
+      VALUES
+        question_marks
+    SQL
+
   end
 
   def update
