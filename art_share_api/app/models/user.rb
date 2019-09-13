@@ -14,4 +14,10 @@ class User < ApplicationRecord
     primary_key: :id,
     dependent: :destroy
 
+    has_many :comments,
+    class_name: :Comment,
+    foreign_key: :author_id,
+    primary_key: :id,
+    dependent: :destroy
+
 end

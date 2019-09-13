@@ -14,6 +14,12 @@ class Artwork < ApplicationRecord
     foreign_key: :artwork_id,
     primary_key: :id
 
+    has_many :comments,
+    class_name: :Comment,
+    foreign_key: :artwork_id,
+    primary_key: :id,
+    dependent: :destroy
+
 
     has_many :shared_viewers, through: :artwork_shares, source: :viewer
 
