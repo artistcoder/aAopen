@@ -6,8 +6,13 @@ class ArtworksController < ApplicationController
     #     render json: @artworks
     # end
     def index
-        artwork = Artwork.find_by(artist_id: params[:user_id])
-        artwork_2 = Artwork.find_by(viewer_id: params[:user_id])
+        @artwork = Artwork.where(artist_id: params[:user_id])
+        ArtworkShare.where(viewer_id: params[:user_id]).each do |artworkshare|
+            viewed_artwork = Artwork.find_by(id: artworkshare.artwork_id)
+            @artwork += [viewed_artwork] if !@artwork.include?(viewed_artwork)
+        end
+
+        render json: @artwork
 
     end
 
