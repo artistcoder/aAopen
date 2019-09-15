@@ -1283,3 +1283,26 @@ Processing by CommentsController#index as */*
 Completed 200 OK in 20ms (Views: 3.4ms | ActiveRecord: 4.5ms)
 
 
+Started GET "/users" for ::1 at 2019-09-15 10:59:12 -0700
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:6
+Completed 200 OK in 16ms (Views: 2.7ms | ActiveRecord: 8.9ms)
+
+
+Started GET "/users?favorite_food=pizza%22" for ::1 at 2019-09-15 10:59:25 -0700
+Processing by UsersController#index as */*
+  Parameters: {"favorite_food"=>"pizza\""}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:6
+Completed 200 OK in 2ms (Views: 1.1ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/users?favorite_food=pizza%22" for ::1 at 2019-09-15 10:59:27 -0700
+Processing by UsersController#index as */*
+  Parameters: {"favorite_food"=>"pizza\""}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:6
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.3ms)
+
+

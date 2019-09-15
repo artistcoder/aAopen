@@ -2,7 +2,13 @@ class UsersController < ApplicationController
     protect_from_forgery prepend: true
     
     def index
-        @users = User.all
+        case
+        when params[:query]
+            users = User.where('username LIKE ?', "%#{params[:query]}%")        
+        else
+            @users = User.all
+        end
+
         render json: @users
     end
 
