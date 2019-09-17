@@ -1306,3 +1306,4 @@ Processing by UsersController#index as */*
 Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.3ms)
 
 
+  [1m[36mComment Load (0.7ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
