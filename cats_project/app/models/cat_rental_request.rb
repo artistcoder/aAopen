@@ -23,10 +23,24 @@ class CatRentalRequest < ApplicationRecord
     end
 
     def does_not_overlap_approved_request
-        unless overlapping_approved_requests.empty?
-          errors[:base] <<
-            'There is an existing, approved request to rent this cat'
-        end
+       overlapping_approved_requests.empty?
     end
+
+    def overlapping_pending_requests
+        self.overlapping_requests.where('status = ?', "PENDING")
+    end
+
+    def approve!
+        raise 'not pending' unless self.status == 'PENDING'
+        transaction do
+            self.update!(status: 'APPROVED')
+            overlapping_pending_requests.each do |req|
+                req.update!(status: 'DENIED')
+            end
+        end
+
+    end
+
+
 
 end
