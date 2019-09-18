@@ -1,11 +1,11 @@
 
 class Cat < ApplicationRecord
     include ActionView::Helpers::DateHelper
-    COLORS = ["blue", "red"]
+    COLORS = ["brown", "white", "black", "calico"]
 
 
     validates :color, inclusion: { in: COLORS, message: "%{value} is not a valid color" }
-    validates :sex, inclusion: { in: %w(M F), message: "%{value} is not a valid sex" }
+    validates :sex, inclusion: { in: ["M", "F"], message: "%{value} is not a valid sex" }
     validates :birth_date, presence: true
     validates :name, presence: true
 
