@@ -24,3 +24,20 @@
     </tr>
 
 </table>
+
+<h2>Rental Requests</h2>
+    <% @requests = @cat.cat_rental_requests.order('start_date ASC')%>
+<table>
+    <tr>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+    </tr>
+    <%@requests.each do |request| %>
+        </tr>
+            <td><%=request.start_date%></td>
+            <td><%=request.end_date%></td>
+        </tr>
+    <%end %>
+
+
+</table>

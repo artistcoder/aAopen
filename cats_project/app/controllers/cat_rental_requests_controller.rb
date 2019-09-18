@@ -1,8 +1,4 @@
 class CatRentalRequestsController < ApplicationController
-    
-    def show
-    end
-
 
     def new
         render :new
