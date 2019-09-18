@@ -31,11 +31,33 @@
     <tr>
         <th scope="col">Start Date</th>
         <th scope="col">End Date</th>
+        <th scope="col">Status</th>
+
     </tr>
-    <%@requests.each do |request| %>
+    <%@requests.each do |req| %>
         </tr>
-            <td><%=request.start_date%></td>
-            <td><%=request.end_date%></td>
+            <td><%=req.start_date%></td>
+            <td><%=req.end_date%></td>
+            <td>
+             <% if req.pending? %>
+                <form action="<%= approve_cat_rental_request_url(req) %>" method="post">
+                    <input
+                        type="hidden"
+                        name="authenticity_token"
+                        value="<%= form_authenticity_token %>">
+                    <input type="submit" value="Approve">
+                    </form>
+                    <form action="<%= deny_cat_rental_request_url(req) %>" method="post">
+                    <input
+                        type="hidden"
+                        name="authenticity_token"
+                        value="<%= form_authenticity_token %>">
+                    <input type="submit" value="Deny">
+                </form>
+            <% else %>
+                <%= req.status %>
+            <% end %>
+            </td>
         </tr>
     <%end %>
 
