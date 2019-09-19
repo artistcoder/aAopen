@@ -1,5 +1,10 @@
-<ul>
+<ul class='flex-container'>
 <% @cats.each do |cat| %>
     <li><%= link_to(cat.name, cat_path(cat)) %></li>
 <% end %>
 </ul>
+<div>
+    <p class='add_new_cat'>Add New Cat</p>
+    <p class='rental_request'>Submit Rental Request</p>
+
+</div
