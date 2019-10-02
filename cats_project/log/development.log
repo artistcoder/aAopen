@@ -3650,3 +3650,17 @@ Processing by CatsController#show as HTML
 Completed 200 OK in 76ms (Views: 26.5ms | ActiveRecord: 47.8ms)
 
 
+Started GET "/" for ::1 at 2019-10-01 13:39:14 -0700
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/jennalumarie/.rvm/gems/ruby-2.6.3/gems/railties-5.2.3/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/jennalumarie/.rvm/gems/ruby-2.6.3/gems/railties-5.2.3/lib/rails/templates/rails/welcome/index.html.erb (6.2ms)
+Completed 200 OK in 17ms (Views: 10.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2019-10-01 13:39:22 -0700
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/jennalumarie/.rvm/gems/ruby-2.6.3/gems/railties-5.2.3/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/jennalumarie/.rvm/gems/ruby-2.6.3/gems/railties-5.2.3/lib/rails/templates/rails/welcome/index.html.erb (3.7ms)
+Completed 200 OK in 6ms (Views: 4.5ms | ActiveRecord: 0.0ms)
+
+
