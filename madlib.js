@@ -47,3 +47,35 @@ function sumOfNPrimes(n){
     }
     return total;
 }
+
+function titleize(arr,func){
+    var names = arr.map(el => `Mx. ${el} Jingleheimer Schmidt`);
+    func(names);
+}
+
+function printCallback(arr){
+    arr.forEach(element => console.log(element));
+}
+
+titleize(["Mary", "Brian", "Leo"], printCallback);
+
+
+function Elephant(name, height,tricks){
+    this.name = name;
+    this.height = height;
+    this.tricks = tricks;
+}
+
+Elephant.prototype.trumpet = function() {
+   console.log(`${this.name} the elephant goes "phrRRRRRRRRRRR!!!!!!!"`); 
+}
+
+Elephant.prototype.grow = function() {
+    this.height += 12;
+    console.log(`height is now: ${this.height}`);
+}
+
+Elephant.prototype.addTrick = function(trick) {
+    this.tricks.push(trick);
+    console.log(`tricks: ${this.tricks}`);
+}
