@@ -79,3 +79,24 @@ Elephant.prototype.addTrick = function(trick) {
     this.tricks.push(trick);
     console.log(`tricks: ${this.tricks}`);
 }
+
+Elephant.prototype.play = function() {
+    var index = Math.floor(Math.random() * this.tricks.length);
+    var trick = this.tricks[index]
+    console.log(`${this.name} is ${trick}`);
+}
+
+function paradeHelper(elephant) {
+    var index = Math.floor(Math.random() * elephant.tricks.length);
+    var trick = elephant.tricks[index]
+    console.log(`${elephant.name} is ${trick} by the crowd!`);
+}
+
+function dinerBreakfast() {
+    let order = "I'd like cheesy scrambled eggs please.";
+    console.log(order);
+  
+    return function (food) {
+      order = `${order.slice(0, order.length - 8)} and ${food} please.`;
+      console.log(order);
+    };}
